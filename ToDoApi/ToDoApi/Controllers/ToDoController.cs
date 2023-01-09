@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToDoApi.Data.Services;
-using static ToDoApi.Contracts.ToDoController;
+using ToDoApi.Contracts;
+using Microsoft.AspNetCore.Cors;
 
 namespace ToDoApi.Controllers
 {
@@ -17,7 +18,7 @@ namespace ToDoApi.Controllers
         }
 
         [HttpGet(Name = "GetToDo")]
-        public async Task<ActionResult<ToDoListDto>> Get()
+        public async Task<ActionResult<IEnumerable<ToDoItem>>> Get()
         {
             var result = await this.itemService.GetItemsForDate(DateTime.Now);
             return this.Ok(result);

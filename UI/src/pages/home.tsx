@@ -1,9 +1,13 @@
-import { Component } from 'solid-js';
+import { Component, For } from 'solid-js';
+import { ToDoItem } from '../apiclient/todoapiclient';
+import { todoitems } from '../App';
+import ItemCard from '../components/ItemCard';
+import { ToDoItemInternal} from '../models/toDoItem';
 
 const home: Component = () => {
     return (
         <div>
-            <h2>home</h2>
+             <For each={todoitems()}>{(item: ToDoItem) => <ItemCard todoitem ={item} />}</For>
         </div>
     )
 }
