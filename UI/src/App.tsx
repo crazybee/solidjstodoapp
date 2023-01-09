@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal } from 'solid-js';
+import { Component, createEffect, createSignal, onMount } from 'solid-js';
 import * as api from '../src/apiclient/todoapiclient';
 import { ToDoItemInternal } from './models/toDoItem';
 import logo from './logo.svg';
@@ -11,14 +11,18 @@ import Finished from './pages/finished';
 let [todoitems, setToDoItems] = createSignal<api.ToDoItem[]>([]);
 
 const todoApiClient: api.Client = new api.Client("https://localhost:7111");
-createEffect(async ()=>
+onMount(async ()=>
 {
-  let allToDo: api.ToDoItem[] = await todoApiClient.getToDo();
-  if(allToDo.length)
-  {
-     setToDoItems(allToDo);
-  }
-
+  let allToDo: api.ToDoItem[] = [];
+  setTimeout(async () => {
+    console.log("simulating loading time"); 
+    allToDo = await todoApiClient.getToDo(); 
+    if(allToDo.length)
+    {
+       setToDoItems(allToDo);
+    }
+}, 5000);
+ 
 })
 const App: Component = () => {
   return (

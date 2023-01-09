@@ -7,7 +7,7 @@ import { ToDoItemInternal} from '../models/toDoItem';
 const home: Component = () => {
     return (
         <div>
-             <For each={todoitems()}>{(item: ToDoItem) => <ItemCard todoitem ={item} />}</For>
+             <For each={todoitems()} fallback={<p>Loading...</p>}>{(item: ToDoItem) => <ItemCard todoitem ={item} />}</For>
         </div>
     )
 }
