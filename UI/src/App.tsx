@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal, onMount } from 'solid-js';
+import { Component, createEffect, createSignal, onCleanup, onMount } from 'solid-js';
 import * as api from '../src/apiclient/todoapiclient';
 import { ToDoItemInternal } from './models/toDoItem';
 import logo from './logo.svg';
@@ -24,6 +24,8 @@ onMount(async ()=>
 }, 5000);
  
 })
+
+
 const App: Component = () => {
   return (
     <div class={styles.App}>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToDoApi.Data.Entities;
+﻿using ToDoApi.Data.Entities;
 
 namespace ToDoApi.Data.Repositories
 {
@@ -11,9 +6,9 @@ namespace ToDoApi.Data.Repositories
     {
         private readonly List<ToDoEntity> FakeToDoListResult = new List<ToDoEntity>() 
         {
-            new ToDoEntity() { Id = 1,Name="test1", CreatedTime= DateTime.Now.Date, Description = "test", Finished = true},
-            new ToDoEntity() { Id = 2,Name="test2", CreatedTime= DateTime.Now.Date, Description = "test", Finished = false},
-            new ToDoEntity() { Id = 3,Name="test3", CreatedTime= DateTime.Now.Date, Description = "test", Finished = false},
+            new ToDoEntity() { Id = 1,Name="shopping", CreatedTime= DateTime.Now.Date, Description = "weekendwork", Finished = true},
+            new ToDoEntity() { Id = 2,Name="go to work", CreatedTime= DateTime.Now.Date, Description = "thursday", Finished = false},
+            new ToDoEntity() { Id = 3,Name="pick up kids", CreatedTime= DateTime.Now.Date, Description = "tuesday/wednesday", Finished = false},
 
         };
         public Task<IEnumerable<ToDoEntity>> GetEntityByDate(DateTime date) => Task.FromResult<IEnumerable<ToDoEntity>>( FakeToDoListResult);
