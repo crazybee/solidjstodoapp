@@ -1,5 +1,5 @@
-using ToDoApi.Data.Repositories;
-using ToDoApi.Data.Services;
+using MockedApi.Data.Repositories;
+using MockedApi.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,24 +9,25 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IToDoItemRepository, ToDoItemRepository>();
-builder.Services.AddSingleton<IToDoItemService, ToDoItemService>();
-builder.Services.AddCors(options => 
+builder.Services.AddSingleton<IItemRepository, ItemRepository>();
+builder.Services.AddSingleton<IMockedItemService, MockedItemService>();
+builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
         builder.AllowAnyOrigin(); // for local debugging only
-      
+
     });
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
 
 app.UseHttpsRedirection();
 

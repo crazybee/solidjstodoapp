@@ -1,4 +1,4 @@
-namespace ToDoApi
+namespace MockedApi
 {
     public class WeatherForecast
     {

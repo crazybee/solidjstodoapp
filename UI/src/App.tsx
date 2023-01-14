@@ -1,43 +1,40 @@
-import { Component, createEffect, createSignal, onCleanup, onMount } from 'solid-js';
-import * as api from '../src/apiclient/todoapiclient';
-import { ToDoItemInternal } from './models/toDoItem';
-import logo from './logo.svg';
-import styles from './App.module.css';
-import Home from './pages/home';
-import Nav from './components/nav';
-import { Route, Routes } from 'solid-app-router';
-import Finished from './pages/finished';
+import { Component, createSignal, onMount } from "solid-js";
+import * as api from "../src/apiclient/mockedItemApiClient";
+import Navigationtab from "./components/navigationtab";
+import { Route, Routes } from "solid-app-router";
+import OverviewMain from "./pages/overviewMain";
+import Details from "./pages/details";
+import ArticalGroup from "./pages/ArticleGroup";
 
-let [todoitems, setToDoItems] = createSignal<api.ToDoItem[]>([]);
+const mockedItemClient: api.Client = new api.Client("https://localhost:7111");
+const [mockedItems, setMockedItems] = createSignal<api.MockedItem[]>([]);
 
-const todoApiClient: api.Client = new api.Client("https://localhost:7111");
-onMount(async ()=>
-{
-  let allToDo: api.ToDoItem[] = [];
+onMount(async () => {
+  let mockedItems: api.MockedItem[] = [];
   setTimeout(async () => {
-    console.log("simulating loading time"); 
-    allToDo = await todoApiClient.getToDo(); 
-    if(allToDo.length)
-    {
-       setToDoItems(allToDo);
-    }
-}, 5000);
- 
-})
+    console.log("simulating loading time");
+    mockedItems = await mockedItemClient.allItem();
+    console.log(mockedItems.length);
 
+    if (mockedItems.length) {
+      setMockedItems(mockedItems);
+    }
+  }, 5000);
+});
 
 const App: Component = () => {
   return (
-    <div class={styles.App}>
-      <Nav/>
-        <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/finished" element={<Finished />} />
+    <div class="container">
+      <Navigationtab />
+      <Routes>
+        <Route path="/" element={<OverviewMain />} />
+        <Route path="/list" element={<OverviewMain />} />
+        <Route path="/details" element={<Details />}></Route>
+        <Route path="/articalgroup" element={<ArticalGroup />}></Route>
       </Routes>
-      
     </div>
   );
 };
 
-export { todoitems }
+export { mockedItems, setMockedItems, mockedItemClient };
 export default App;
